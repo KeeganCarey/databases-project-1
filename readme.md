@@ -19,7 +19,7 @@ University staff tracking mentorship engagement
 * As a staff member, I want to view overall mentorship activity so I can understand engagement levels.
 
 
-
+# Crows Foot ERD diagram
 ```mermaid
 
 erDiagram
@@ -83,4 +83,59 @@ erDiagram
     STUDENT_INDUSTRY }o--|| INDUSTRY : "interests"
     MENTOR ||--o{ MENTOR_INDUSTRY : "belongs to"
     MENTOR_INDUSTRY }o--|| INDUSTRY : "contains"
+```
+
+# UML Diagram
+```mermaid
+classDiagram
+    direction LR
+    
+    class Session {
+        +int session_id
+        +int student_id
+        +int mentor_id
+        +date session_date
+        +int duration_minutes
+        +string status
+        +string topic
+    }
+    
+    class Student {
+        +int student_id
+        +string first_name
+        +string last_name
+        +string email
+        +string major
+        +int graduation_year
+    }
+    
+    class Mentor {
+        +int mentor_id
+        +string first_name
+        +string last_name
+        +string email
+        +string company
+        +string job_title
+        +int years_experience
+    }
+    
+    class Feedback {
+        +int feedback_id
+        +int session_id
+        +int rating
+        +string comment
+        +datetime submitted_at
+    }
+    
+    class Industry {
+        +int industry_id
+        +string industry_name
+        +string description
+    }
+    
+    Student "1" --> "*" Session : is associated with
+    Mentor "1" --> "*" Session : conducts
+    Session "1" --> "0..1" Feedback : receives
+    Student "*" --> "*" Industry : is interested in
+    Mentor "*" --> "*" Industry : belongs to
 ```
