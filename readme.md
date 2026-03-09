@@ -133,9 +133,9 @@ classDiagram
         +string description
     }
     
-    Student "1" --> "*" Session : is associated with
-    Mentor "1" --> "*" Session : conducts
+    Student "1" --> "..*" Session : is associated with
+    Mentor "1" --> "..*" Session : conducts
     Session "1" --> "0..1" Feedback : receives
-    Student "*" --> "*" Industry : is interested in
-    Mentor "*" --> "*" Industry : belongs to
+    Student "..*" --> "..*" Industry : is interested in
+    Mentor "..*" --> "..*" Industry : belongs to
 ```
