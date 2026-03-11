@@ -149,7 +149,7 @@ Because we have no experience with HTML, we used Claude Haiku to assist in the g
 Additionally, Gemini was used to assist in the generation of some parts of the js backend and figuring out how to use node as it was entirely new to us.
 
 ### How to Start It
-```cd app``
+```cd app```
 ```npm start```
 
 The website should start on loclhost:3000
