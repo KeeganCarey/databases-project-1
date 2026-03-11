@@ -1,78 +1,68 @@
--- 1. Create the main tables that don't depend on anything else
-
--- This table stores basic information about each student
+-- student information
 CREATE TABLE Student (
-    student_id INT PRIMARY KEY,        -- unique ID for each student
-    first_name VARCHAR(255),           -- student's first name
-    last_name VARCHAR(255),            -- student's last name
-    email VARCHAR(255),                -- student's email address
-    major VARCHAR(255),                -- what the student is studying
-    graduation_year INT                -- expected graduation year
+    student_id INT PRIMARY KEY,        -- unique student id
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    major VARCHAR(255),
+    graduation_year INT
 );
 
--- This table stores information about mentors
+-- mentor information
 CREATE TABLE Mentor (
-    mentor_id INT PRIMARY KEY,         -- unique ID for each mentor
-    first_name VARCHAR(255),           -- mentor's first name
-    last_name VARCHAR(255),            -- mentor's last name
-    email VARCHAR(255),                -- mentor's email
-    company VARCHAR(255),              -- company they work at
-    job_title VARCHAR(255),            -- their job title
-    years_experience INT               -- years of experience in their field
+    mentor_id INT PRIMARY KEY,         -- unique mentor id
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    company VARCHAR(255),
+    job_title VARCHAR(255),
+    years_experience INT
 );
 
--- This table stores different industries students or mentors might be connected to
+-- industries students and mentors are connected to
 CREATE TABLE Industry (
-    industry_id INT PRIMARY KEY,       -- unique ID for each industry
-    industry_name VARCHAR(255),        -- name of the industry
-    description VARCHAR(255)           -- short description of the industry
+    industry_id INT PRIMARY KEY,
+    industry_name VARCHAR(255),
+    description VARCHAR(255)
 );
 
--- 2. Create junction tables to handle many-to-many relationships
-
--- A student can be interested in multiple industries
--- and each industry can have many students
+-- connects students to industries they are interested in
 CREATE TABLE Student_industry (
     student_id INT,
     industry_id INT,
-    PRIMARY KEY (student_id, industry_id),  -- ensures the combination is unique
-    FOREIGN KEY (student_id) REFERENCES Student(student_id),   -- links to Student table
-    FOREIGN KEY (industry_id) REFERENCES Industry(industry_id) -- links to Industry table
+    PRIMARY KEY (student_id, industry_id),
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (industry_id) REFERENCES Industry(industry_id)
 );
 
--- A mentor can work in multiple industries
--- and an industry can have many mentors
+-- connects mentors to industries they work in
 CREATE TABLE Mentor_industry (
     mentor_id INT,
     industry_id INT,
-    PRIMARY KEY (mentor_id, industry_id),   -- prevents duplicate connections
-    FOREIGN KEY (mentor_id) REFERENCES Mentor(mentor_id),      -- links to Mentor table
-    FOREIGN KEY (industry_id) REFERENCES Industry(industry_id) -- links to Industry table
+    PRIMARY KEY (mentor_id, industry_id),
+    FOREIGN KEY (mentor_id) REFERENCES Mentor(mentor_id),
+    FOREIGN KEY (industry_id) REFERENCES Industry(industry_id)
 );
 
--- 3. Create the session table that tracks meetings between students and mentors
-
--- Each session represents a meeting between a student and a mentor
+-- sessions between students and mentors
 CREATE TABLE Session (
-    session_id INT PRIMARY KEY,        -- unique ID for each session
-    student_id INT,                    -- which student attended
-    mentor_id INT,                     -- which mentor hosted the session
-    session_date DATE,                 -- date the session happened
-    duration_minutes INT,              -- how long the session lasted
-    status VARCHAR(50),                -- status like scheduled, completed, or canceled
-    topic VARCHAR(255),                -- topic discussed during the session
-    FOREIGN KEY (student_id) REFERENCES Student(student_id),  -- connects to student
-    FOREIGN KEY (mentor_id) REFERENCES Mentor(mentor_id)      -- connects to mentor
+    session_id INT PRIMARY KEY,
+    student_id INT,
+    mentor_id INT,
+    session_date DATE,
+    duration_minutes INT,
+    status VARCHAR(50),
+    topic VARCHAR(255),
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (mentor_id) REFERENCES Mentor(mentor_id)
 );
 
--- 4. Create the feedback table
-
--- After a session, students can leave feedback about it
+-- feedback left after a session
 CREATE TABLE Feedback (
-    feedback_id INT PRIMARY KEY,       -- unique ID for each feedback entry
-    session_id INT,                    -- which session the feedback is for
-    rating INT,                        -- rating score (for example 1–5)
-    comment VARCHAR(1000),             -- written feedback or thoughts
-    submitted_at DATETIME,             -- when the feedback was submitted
-    FOREIGN KEY (session_id) REFERENCES Session(session_id)   -- connects feedback to a session
+    feedback_id INT PRIMARY KEY,
+    session_id INT,
+    rating INT,
+    comment VARCHAR(1000),
+    submitted_at DATETIME,
+    FOREIGN KEY (session_id) REFERENCES Session(session_id)
 );
