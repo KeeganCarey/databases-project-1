@@ -89,28 +89,29 @@ erDiagram
 ```mermaid
 classDiagram
     direction LR
-    
+
     class Session {
-        int session_id
-        int student_id
-        int mentor_id
+        <<Entity>>
+        +int session_id PK
         date session_date
         int duration_minutes
         string status
         string topic
     }
-    
+
     class Student {
-        int student_id
+        <<Entity>>
+        +int student_id PK
         string first_name
         string last_name
         string email
         string major
         int graduation_year
     }
-    
+
     class Mentor {
-        int mentor_id
+        <<Entity>>
+        +int mentor_id PK
         string first_name
         string last_name
         string email
@@ -118,24 +119,36 @@ classDiagram
         string job_title
         int years_experience
     }
-    
+
     class Feedback {
-        int feedback_id
-        int session_id
+        <<Entity>>
+        +int feedback_id PK
         int rating
         string comment
         datetime submitted_at
     }
-    
+
     class Industry {
-        int industry_id
+        <<Entity>>
+        +int industry_id PK
         string industry_name
         string description
     }
-    
-    Student "1" --> "..*" Session : is associated with
-    Mentor "1" --> "..*" Session : conducts
+
+    Student "1" --> "0..*" Session : books
+    Mentor "1" --> "0..*" Session : conducts
     Session "1" --> "0..1" Feedback : receives
-    Student "..*" --> "..*" Industry : is interested in
-    Mentor "..*" --> "..*" Industry : belongs to
+    Student "0..*" --> "0..*" Industry : is interested in
+    Mentor "0..*" --> "0..*" Industry : works in
 ```
+
+
+# Node App Interface
+
+Because we have no experience with HTML, we used Claude Haiku to assist in the generation of the styling of the web pages for the interface. We directed it as to what we wanted the UI to look like and it helped us create it.
+Additionally, Gemini was used to assist in the generation of some parts of the js backend and figuring out how to use node as it was entirely new to us.
+
+## AI Citations
+
+Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 10 Mar. 2026.
+Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 10 Mar. 2026

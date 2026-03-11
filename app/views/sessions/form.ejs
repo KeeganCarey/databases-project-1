@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= session ? 'Edit' : 'New' %> Session - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; background: #2980b9; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-size: 1em; }
+    button:hover { background: #2471a3; }
+    nav { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav><a href="/sessions">Back to Sessions</a></nav>
+  <h1><%= session ? 'Edit' : 'New' %> Session</h1>
+  <form method="POST" action="<%= session ? '/sessions/' + session.session_id + '/update' : '/sessions' %>">
+    <label>Student
+      <select name="student_id" required>
+        <option value="">-- Select Student --</option>
+        <% students.forEach(st => { %>
+          <option value="<%= st.student_id %>" <%= session && session.student_id === st.student_id ? 'selected' : '' %>>
+            <%= st.first_name %> <%= st.last_name %>
+          </option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Mentor
+      <select name="mentor_id" required>
+        <option value="">-- Select Mentor --</option>
+        <% mentors.forEach(m => { %>
+          <option value="<%= m.mentor_id %>" <%= session && session.mentor_id === m.mentor_id ? 'selected' : '' %>>
+            <%= m.first_name %> <%= m.last_name %> (<%= m.company %>)
+          </option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Date
+      <input type="date" name="session_date" value="<%= session ? session.session_date : '' %>" required>
+    </label>
+    <label>Duration (minutes)
+      <input type="number" name="duration_minutes" value="<%= session ? session.duration_minutes : 30 %>" min="15" step="15" required>
+    </label>
+    <label>Status
+      <select name="status" required>
+        <% ['requested', 'scheduled', 'completed', 'cancelled'].forEach(st => { %>
+          <option value="<%= st %>" <%= session && session.status === st ? 'selected' : '' %>><%= st %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Topic
+      <input type="text" name="topic" value="<%= session ? session.topic : '' %>" required>
+    </label>
+    <button type="submit"><%= session ? 'Update' : 'Create' %> Session</button>
+  </form>
+</body>
+</html>

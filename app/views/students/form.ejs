@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= student ? 'Edit' : 'New' %> Student - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; background: #2980b9; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-size: 1em; }
+    button:hover { background: #2471a3; }
+    nav { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav><a href="/students">Back to Students</a></nav>
+  <h1><%= student ? 'Edit' : 'New' %> Student</h1>
+  <form method="POST" action="<%= student ? '/students/' + student.student_id + '/update' : '/students' %>">
+    <label>First Name
+      <input type="text" name="first_name" value="<%= student ? student.first_name : '' %>" required>
+    </label>
+    <label>Last Name
+      <input type="text" name="last_name" value="<%= student ? student.last_name : '' %>" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" value="<%= student ? student.email : '' %>" required>
+    </label>
+    <label>Major
+      <input type="text" name="major" value="<%= student ? student.major : '' %>" required>
+    </label>
+    <label>Graduation Year
+      <input type="number" name="graduation_year" value="<%= student ? student.graduation_year : '' %>" required>
+    </label>
+    <button type="submit"><%= student ? 'Update' : 'Create' %> Student</button>
+  </form>
+</body>
+</html>
