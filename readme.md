@@ -148,7 +148,14 @@ classDiagram
 Because we have no experience with HTML, we used Claude Haiku to assist in the generation of the styling of the web pages for the interface. We directed it as to what we wanted the UI to look like and it helped us create it.
 Additionally, Gemini was used to assist in the generation of some parts of the js backend and figuring out how to use node as it was entirely new to us.
 
+### How to Start It
+```cd app``
+```npm start```
+
+The website should start on loclhost:3000
+
 ## AI Citations
 
 Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 10 Mar. 2026.
+
 Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 10 Mar. 2026
