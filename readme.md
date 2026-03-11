@@ -150,6 +150,7 @@ Additionally, Gemini was used to assist in the generation of some parts of the j
 
 ### How to Start It
 ```cd app```
+
 ```npm start```
 
 The website should start on loclhost:3000
