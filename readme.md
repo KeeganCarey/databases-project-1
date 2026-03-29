@@ -218,6 +218,7 @@ mongorestore --db mentorbridge ./dump/mentorbridge
 ```
 
 ### Project 2 New Diagram
+``` mermaid
 classDiagram
     class students {
         +ObjectId _id
@@ -273,3 +274,4 @@ classDiagram
     mentors "1" *-- "many" industries : embedded array
     mentors "1" o-- "many" mentor_sessions : summary view (aggregation)
     students "1" ..> mentors : mentor_id reference
+```
