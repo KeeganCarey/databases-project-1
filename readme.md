@@ -216,3 +216,60 @@ We also included a dump folder in the repo. You can use it to restore the whole 
 ```bash
 mongorestore --db mentorbridge ./dump/mentorbridge
 ```
+
+### Project 2 New Diagram
+classDiagram
+    class students {
+        +ObjectId _id
+        +string first_name
+        +string last_name
+        +string email
+        +string major
+        +int graduation_year
+        +bool is_active
+    }
+
+    class industries {
+        +string industry_name
+        +string description
+    }
+
+    class sessions {
+        +int session_id
+        +string session_date
+        +int duration_minutes
+        +string status
+        +string topic
+        +string mentor_name
+    }
+
+    class feedback {
+        +int rating
+        +string comment
+        +string submitted_at
+    }
+
+    class mentors {
+        +ObjectId _id
+        +string first_name
+        +string last_name
+        +string email
+        +string company
+        +string job_title
+        +int years_experience
+        +bool is_active
+    }
+
+    class mentor_sessions {
+        +int session_id
+        +string student_name
+        +string session_date
+        +string status
+    }
+
+    students "1" *-- "many" industries : embedded array
+    students "1" *-- "many" sessions : embedded array (composition)
+    sessions "1" *-- "0..1" feedback : embedded doc (composition)
+    mentors "1" *-- "many" industries : embedded array
+    mentors "1" o-- "many" mentor_sessions : summary view (aggregation)
+    students "1" ..> mentors : mentor_id reference
