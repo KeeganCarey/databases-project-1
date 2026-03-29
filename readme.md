@@ -160,3 +160,59 @@ The website should start on loclhost:3000
 Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 10 Mar. 2026.
 
 Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 10 Mar. 2026
+## How to set up the MongoDB database
+
+We use MongoDB to store the mentorship data. There are two collections: students and mentors.
+
+---
+
+### Step 1 - Make sure MongoDB is running
+
+On Windows, open a terminal and run:
+```bash
+net start MongoDB
+```
+
+---
+
+### Step 2 - Import the data
+
+Run these two commands from the project folder:
+
+```bash
+mongoimport --db mentorbridge --collection students --file data/students.json --jsonArray
+```
+
+```bash
+mongoimport --db mentorbridge --collection mentors --file data/mentors.json --jsonArray
+```
+
+You should see "5 document(s) imported successfully" for students and "4 document(s) imported successfully" for mentors.
+
+---
+
+### Step 3 - Check it worked
+
+Open the mongo shell:
+```bash
+mongosh
+```
+
+Then run:
+```bash
+use mentorbridge
+db.students.find().pretty()
+db.mentors.find().pretty()
+```
+
+You should see all the documents printed out.
+
+---
+
+### If you want to restore from the dump file instead
+
+We also included a dump folder in the repo. You can use it to restore the whole database at once:
+
+```bash
+mongorestore --db mentorbridge ./dump/mentorbridge
+```
