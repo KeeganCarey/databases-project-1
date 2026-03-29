@@ -1,0 +1,76 @@
+[
+  {
+    "first_name": "James",
+    "last_name": "Torres",
+    "email": "james.torres@techcorp.com",
+    "company": "TechCorp",
+    "job_title": "Senior Software Engineer",
+    "years_experience": 8,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Software Engineering", "description": "Building software systems" }
+    ],
+    "sessions": [
+      {
+        "session_id": 1,
+        "student_name": "Maya Patel",
+        "session_date": "2025-11-10",
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "first_name": "Sandra",
+    "last_name": "Kim",
+    "email": "sandra.kim@fingroup.com",
+    "company": "FinGroup",
+    "job_title": "Financial Analyst",
+    "years_experience": 5,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Finance", "description": "Managing money and investments" },
+      { "industry_name": "Marketing", "description": "Promoting products and services" }
+    ],
+    "sessions": [
+      {
+        "session_id": 2,
+        "student_name": "Aisha Johnson",
+        "session_date": "2025-12-05",
+        "status": "pending"
+      }
+    ]
+  },
+  {
+    "first_name": "David",
+    "last_name": "Nguyen",
+    "email": "david.nguyen@dataworks.com",
+    "company": "DataWorks",
+    "job_title": "Data Scientist",
+    "years_experience": 6,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Data Science", "description": "Analyzing complex data" }
+    ],
+    "sessions": [
+      {
+        "session_id": 3,
+        "student_name": "Sofia Hernandez",
+        "session_date": "2026-01-15",
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "first_name": "Rachel",
+    "last_name": "Moore",
+    "email": "rachel.moore@buildco.com",
+    "company": "BuildCo",
+    "job_title": "Product Manager",
+    "years_experience": 10,
+    "is_active": false,
+    "industries": [
+      { "industry_name": "Software Engineering", "description": "Building software systems" }
+    ],
+    "sessions": []
+  }
+]

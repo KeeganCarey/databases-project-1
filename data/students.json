@@ -1,0 +1,103 @@
+
+[
+  {
+    "first_name": "Maya",
+    "last_name": "Patel",
+    "email": "maya.patel@university.edu",
+    "major": "Computer Science",
+    "graduation_year": 2026,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Software Engineering", "description": "Building software systems" },
+      { "industry_name": "Data Science", "description": "Analyzing complex data" }
+    ],
+    "sessions": [
+      {
+        "session_id": 1,
+        "session_date": "2025-11-10",
+        "duration_minutes": 45,
+        "status": "completed",
+        "topic": "Resume review",
+        "mentor_name": "James Torres",
+        "feedback": {
+          "rating": 5,
+          "comment": "Very helpful!",
+          "submitted_at": "2025-11-10T15:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "first_name": "Carlos",
+    "last_name": "Rivera",
+    "email": "carlos.rivera@university.edu",
+    "major": "Business",
+    "graduation_year": 2025,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Finance", "description": "Managing money and investments" }
+    ],
+    "sessions": []
+  },
+  {
+    "first_name": "Aisha",
+    "last_name": "Johnson",
+    "email": "aisha.johnson@university.edu",
+    "major": "Marketing",
+    "graduation_year": 2026,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Marketing", "description": "Promoting products and services" }
+    ],
+    "sessions": [
+      {
+        "session_id": 2,
+        "session_date": "2025-12-05",
+        "duration_minutes": 30,
+        "status": "pending",
+        "topic": "Breaking into digital marketing",
+        "mentor_name": "Sandra Kim",
+        "feedback": null
+      }
+    ]
+  },
+  {
+    "first_name": "Liam",
+    "last_name": "Chen",
+    "email": "liam.chen@university.edu",
+    "major": "Data Science",
+    "graduation_year": 2027,
+    "is_active": false,
+    "industries": [
+      { "industry_name": "Data Science", "description": "Analyzing complex data" },
+      { "industry_name": "Software Engineering", "description": "Building software systems" }
+    ],
+    "sessions": []
+  },
+  {
+    "first_name": "Sofia",
+    "last_name": "Hernandez",
+    "email": "sofia.hernandez@university.edu",
+    "major": "Computer Science",
+    "graduation_year": 2025,
+    "is_active": true,
+    "industries": [
+      { "industry_name": "Software Engineering", "description": "Building software systems" }
+    ],
+    "sessions": [
+      {
+        "session_id": 3,
+        "session_date": "2026-01-15",
+        "duration_minutes": 60,
+        "status": "completed",
+        "topic": "Interview prep",
+        "mentor_name": "David Nguyen",
+        "feedback": {
+          "rating": 4,
+          "comment": "Good tips on technical interviews.",
+          "submitted_at": "2026-01-15T17:00:00Z"
+        }
+      }
+    ]
+  }
+]
