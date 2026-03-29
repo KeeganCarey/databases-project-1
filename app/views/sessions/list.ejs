@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sessions - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #2c3e50; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .actions { white-space: nowrap; }
+    .actions a, .actions button { margin-right: 5px; }
+    button { background: #e74c3c; color: white; border: none; padding: 4px 10px; cursor: pointer; border-radius: 3px; }
+    button:hover { background: #c0392b; }
+    .btn-add { display: inline-block; margin-bottom: 10px; background: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; }
+    .btn-add:hover { background: #219a52; color: white; text-decoration: none; }
+    .status-completed { color: #27ae60; }
+    .status-scheduled { color: #2980b9; }
+    .status-requested { color: #f39c12; }
+    .status-cancelled { color: #e74c3c; }
+    nav { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav><a href="/">Home</a></nav>
+  <h1>Sessions</h1>
+  <a href="/sessions/new" class="btn-add">+ Add Session</a>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Student</th>
+        <th>Mentor</th>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Status</th>
+        <th>Topic</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sessions.forEach(s => { %>
+        <tr>
+          <td><%= s.session_id %></td>
+          <td><%= s.student_name %></td>
+          <td><%= s.mentor_name %></td>
+          <td><%= s.session_date %></td>
+          <td><%= s.duration_minutes %> min</td>
+          <td class="status-<%= s.status %>"><%= s.status %></td>
+          <td><%= s.topic %></td>
+          <td class="actions">
+            <a href="/sessions/<%= s.session_id %>/edit">Edit</a>
+            <form method="POST" action="/sessions/<%= s.session_id %>/delete" style="display:inline"
+                  onsubmit="return confirm('Delete this session?')">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
