@@ -1,1 +1,3 @@
 /extra
+app/node_modules/
+app-mongo/node_modules/
