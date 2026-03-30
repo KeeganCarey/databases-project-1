@@ -279,14 +279,5 @@ db.mentors.find().pretty()
 
 Copy the dump folder into the container and restore:
 ```bash
-docker cp dump/mentorbridge my-mongodb:/tmp/mentorbridge
-docker exec my-mongodb mongorestore --db mentorbridge /tmp/mentorbridge
+mongorestore --db mentorbridge ./dump/mentorbridge
 ```
-
-
-
-## AI Citations
-
-Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 27 Mar. 2026.
-
-Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 27 Mar. 2026
