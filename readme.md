@@ -19,7 +19,7 @@ University staff tracking mentorship engagement
 * As a staff member, I want to view overall mentorship activity so I can understand engagement levels.
 
 
-# Crows Foot ERD diagram
+## Crows Foot ERD diagram
 ```mermaid
 
 erDiagram
@@ -85,7 +85,7 @@ erDiagram
     MENTOR_INDUSTRY }o--|| INDUSTRY : "contains"
 ```
 
-# UML Diagram
+## UML Diagram
 ```mermaid
 classDiagram
     direction LR
@@ -142,77 +142,151 @@ classDiagram
     Mentor "0..*" --> "0..*" Industry : works in
 ```
 
+## Project 2 Hierarchical Diagram
+``` mermaid
+classDiagram
+    class students {
+        +ObjectId _id
+        +string first_name
+        +string last_name
+        +string email
+        +string major
+        +int graduation_year
+        +bool is_active
+    }
 
-# Node App Interface
+    class industries {
+        +string industry_name
+        +string description
+    }
+
+    class sessions {
+        +int session_id
+        +string session_date
+        +int duration_minutes
+        +string status
+        +string topic
+        +string mentor_name
+    }
+
+    class feedback {
+        +int rating
+        +string comment
+        +string submitted_at
+    }
+
+    class mentors {
+        +ObjectId _id
+        +string first_name
+        +string last_name
+        +string email
+        +string company
+        +string job_title
+        +int years_experience
+        +bool is_active
+    }
+
+    class mentor_sessions {
+        +int session_id
+        +string student_name
+        +string session_date
+        +string status
+    }
+
+    students "1" *-- "many" industries : embedded array
+    students "1" *-- "many" sessions : embedded array (composition)
+    sessions "1" *-- "0..1" feedback : embedded doc (composition)
+    mentors "1" *-- "many" industries : embedded array
+    mentors "1" o-- "many" mentor_sessions : summary view (aggregation)
+    students "1" ..> mentors : mentor_id reference
+```
+
+
+
+# Node App Interfaces
 
 Because we have no experience with HTML, we used Claude Haiku to assist in the generation of the styling of the web pages for the interface. We directed it as to what we wanted the UI to look like and it helped us create it.
 Additionally, Gemini was used to assist in the generation of some parts of the js backend and figuring out how to use node as it was entirely new to us.
 
-### How to Start It
-```cd app```
+### SQLite App (Project 1)
+```bash
+cd app
+npm install
+npm start
+```
+The website should start on localhost:3000. This version uses SQLite and has CRUD for Students and Sessions.
 
-```npm start```
+### MongoDB App (Project 2)
+Make sure MongoDB is running first (see setup instructions below), then:
+```bash
+cd app-mongo
+npm install
+npm start
+```
+The website should start on localhost:3001. This version uses MongoDB and has CRUD for Students and Mentors.
 
-The website should start on loclhost:3000
+## MongoDB Queries
 
-## AI Citations
+The file `queries/mongo_queries.js` contains 6 MongoDB queries that can be run using `mongosh` after setting up the database.
 
-Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 10 Mar. 2026.
+To run them, open `mongosh`, switch to `use mentorbridge`, and paste each query.
 
-Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 10 Mar. 2026
-## How to set up the MongoDB database
+## How to set up the MongoDB database in Docker
 
 We use MongoDB to store the mentorship data. There are two collections: students and mentors.
+You can use a local install to run it similarly, but this shows how to start it using docker.
 
 ---
 
-### Step 1 - Make sure MongoDB is running
+### 1. Start the MongoDB container
 
-On Windows, open a terminal and run:
 ```bash
-net start MongoDB
+docker run -d --name my-mongodb -p 27017:27017 mongo:latest
 ```
 
----
+If you already have the container, just start it:
+```bash
+docker start my-mongodb
+```
 
-### Step 2 - Import the data
+*or just click the play button on Docker Desktop*
 
-Run these two commands from the project folder:
+### 2. Import the data
+
+Run these commands from the project root folder:
 
 ```bash
-mongoimport --db mentorbridge --collection students --file data/students.json --jsonArray
+docker exec -i my-mongodb mongoimport --db mentorbridge --collection students --jsonArray < data/students.json
 ```
 
 ```bash
-mongoimport --db mentorbridge --collection mentors --file data/mentors.json --jsonArray
+docker exec -i my-mongodb mongoimport --db mentorbridge --collection mentors --jsonArray < data/mentors.json
 ```
 
 You should see "5 document(s) imported successfully" for students and "4 document(s) imported successfully" for mentors.
 
----
-
-### Step 3 - Check it worked
-
-Open the mongo shell:
+### 3. View the Data
 ```bash
-mongosh
+docker exec -it my-mongodb mongosh mentorbridge
 ```
-
 Then run:
-```bash
-use mentorbridge
+```
 db.students.find().pretty()
 db.mentors.find().pretty()
 ```
-
-You should see all the documents printed out.
-
----
-
+*pretty() just formats it so its easy to look at*
 ### If you want to restore from the dump file instead
 
-We also included a dump folder in the repo. You can use it to restore the whole database at once:
-
+Copy the dump folder into the container and restore:
 ```bash
-mongorestore --db mentorbridge ./dump/mentorbridge
+docker cp dump/mentorbridge my-mongodb:/tmp/mentorbridge
+docker exec my-mongodb mongorestore --db mentorbridge /tmp/mentorbridge
 ```
+
+
+
+## AI Citations
+
+Anthropic. "Claude." *Claude*, Anthropic, 2025, claude.ai/. Accessed 27 Mar. 2026.
+
+Google. "Gemini." *Gemini*, Google, 2025, gemini.google.com. Accessed 27 Mar. 2026

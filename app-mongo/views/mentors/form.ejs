@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= mentor ? 'Edit' : 'New' %> Mentor - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+    button { margin-top: 20px; background: #2980b9; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-size: 1em; }
+    button:hover { background: #2471a3; }
+    nav { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav><a href="/mentors">Back to Mentors</a></nav>
+  <h1><%= mentor ? 'Edit' : 'New' %> Mentor</h1>
+  <form method="POST" action="<%= mentor ? '/mentors/' + mentor._id + '/update' : '/mentors' %>">
+    <label>First Name
+      <input type="text" name="first_name" value="<%= mentor ? mentor.first_name : '' %>" required>
+    </label>
+    <label>Last Name
+      <input type="text" name="last_name" value="<%= mentor ? mentor.last_name : '' %>" required>
+    </label>
+    <label>Email
+      <input type="email" name="email" value="<%= mentor ? mentor.email : '' %>" required>
+    </label>
+    <label>Company
+      <input type="text" name="company" value="<%= mentor ? mentor.company : '' %>" required>
+    </label>
+    <label>Job Title
+      <input type="text" name="job_title" value="<%= mentor ? mentor.job_title : '' %>" required>
+    </label>
+    <label>Years of Experience
+      <input type="number" name="years_experience" value="<%= mentor ? mentor.years_experience : '' %>" required>
+    </label>
+    <button type="submit"><%= mentor ? 'Update' : 'Create' %> Mentor</button>
+  </form>
+</body>
+</html>

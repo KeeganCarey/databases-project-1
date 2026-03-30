@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #2c3e50; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .actions { white-space: nowrap; }
+    .actions a, .actions button { margin-right: 5px; }
+    button { background: #e74c3c; color: white; border: none; padding: 4px 10px; cursor: pointer; border-radius: 3px; }
+    button:hover { background: #c0392b; }
+    .btn-add { display: inline-block; margin-bottom: 10px; background: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; }
+    .btn-add:hover { background: #219a52; color: white; text-decoration: none; }
+    nav { margin-bottom: 20px; }
+    .active { color: #27ae60; }
+    .inactive { color: #e74c3c; }
+  </style>
+</head>
+<body>
+  <nav><a href="/">Home</a></nav>
+  <h1>Students</h1>
+  <a href="/students/new" class="btn-add">+ Add Student</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Major</th>
+        <th>Grad Year</th>
+        <th>Active</th>
+        <th>Sessions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(s => { %>
+        <tr>
+          <td><%= s.first_name %> <%= s.last_name %></td>
+          <td><%= s.email %></td>
+          <td><%= s.major %></td>
+          <td><%= s.graduation_year %></td>
+          <td class="<%= s.is_active ? 'active' : 'inactive' %>"><%= s.is_active ? 'Yes' : 'No' %></td>
+          <td><%= s.sessions ? s.sessions.length : 0 %></td>
+          <td class="actions">
+            <a href="/students/<%= s._id %>/edit">Edit</a>
+            <form method="POST" action="/students/<%= s._id %>/delete" style="display:inline"
+                  onsubmit="return confirm('Delete this student?')">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mentors - MentorBridge</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    h1 { color: #2c3e50; }
+    a { color: #2980b9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background: #2c3e50; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .actions { white-space: nowrap; }
+    .actions a, .actions button { margin-right: 5px; }
+    button { background: #e74c3c; color: white; border: none; padding: 4px 10px; cursor: pointer; border-radius: 3px; }
+    button:hover { background: #c0392b; }
+    .btn-add { display: inline-block; margin-bottom: 10px; background: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; }
+    .btn-add:hover { background: #219a52; color: white; text-decoration: none; }
+    nav { margin-bottom: 20px; }
+    .active { color: #27ae60; }
+    .inactive { color: #e74c3c; }
+  </style>
+</head>
+<body>
+  <nav><a href="/">Home</a></nav>
+  <h1>Mentors</h1>
+  <a href="/mentors/new" class="btn-add">+ Add Mentor</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Job Title</th>
+        <th>Experience</th>
+        <th>Active</th>
+        <th>Sessions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% mentors.forEach(m => { %>
+        <tr>
+          <td><%= m.first_name %> <%= m.last_name %></td>
+          <td><%= m.email %></td>
+          <td><%= m.company %></td>
+          <td><%= m.job_title %></td>
+          <td><%= m.years_experience %> yrs</td>
+          <td class="<%= m.is_active ? 'active' : 'inactive' %>"><%= m.is_active ? 'Yes' : 'No' %></td>
+          <td><%= m.sessions ? m.sessions.length : 0 %></td>
+          <td class="actions">
+            <a href="/mentors/<%= m._id %>/edit">Edit</a>
+            <form method="POST" action="/mentors/<%= m._id %>/delete" style="display:inline"
+                  onsubmit="return confirm('Delete this mentor?')">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
