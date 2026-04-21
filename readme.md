@@ -19,6 +19,7 @@ University staff tracking mentorship engagement
 * As a staff member, I want to view overall mentorship activity so I can understand engagement levels.
 
 # Project 3 UML Diagram
+```mermaid
 classDiagram
     direction LR
     class Student {
@@ -92,6 +93,7 @@ classDiagram
     Student "1" --> "1" SessionCart : has cart
     Session "1" --> "1" TopMentorsLeaderboard : updates score
     Student "1" --> "1" ActiveUsers : login tracked
+```
 
 ## Crows Foot ERD diagram
 ```mermaid
