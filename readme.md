@@ -18,6 +18,80 @@ University staff tracking mentorship engagement
 * As a mentor, I want to see my session history so I can keep track of who I have supported.
 * As a staff member, I want to view overall mentorship activity so I can understand engagement levels.
 
+# Project 3 UML Diagram
+classDiagram
+    direction LR
+    class Student {
+        <<Entity>>
+        +int student_id PK
+        +string first_name
+        +string last_name
+        +string email
+        +string major
+        +int graduation_year
+    }
+    class Mentor {
+        <<Entity>>
+        +int mentor_id PK
+        +string first_name
+        +string last_name
+        +string email
+        +string company
+        +string job_title
+        +int years_experience
+    }
+    class Session {
+        <<Entity>>
+        +int session_id PK
+        +int student_id FK
+        +int mentor_id FK
+        +date session_date
+        +int duration_minutes
+        +string status
+        +string topic
+    }
+    class Feedback {
+        <<Entity>>
+        +int feedback_id PK
+        +int session_id FK
+        +int rating
+        +string comment
+        +datetime submitted_at
+    }
+    class Industry {
+        <<Entity>>
+        +int industry_id PK
+        +string industry_name
+        +string description
+    }
+    class SessionCart {
+        <<Redis Hash>>
+        +string key: cart~student_id~
+        +string field: entry~n~
+        +string value: mentor_id, date, topic
+        +int TTL: 86400 seconds
+    }
+    class TopMentorsLeaderboard {
+        <<Redis Sorted Set>>
+        +string key: leaderboard~mentors~
+        +string member: mentor_id
+        +int score: avg_rating x 100
+    }
+    class ActiveUsers {
+        <<Redis Set>>
+        +string key: active~users~
+        +string member: session_token
+        +string companion: session~token~ = user_id
+        +int TTL: 3600 seconds
+    }
+    Student "1" --> "0..*" Session : books
+    Mentor "1" --> "0..*" Session : conducts
+    Session "1" --> "0..1" Feedback : receives
+    Student "0..*" --> "0..*" Industry : is interested in
+    Mentor "0..*" --> "0..*" Industry : works in
+    Student "1" --> "1" SessionCart : has cart
+    Session "1" --> "1" TopMentorsLeaderboard : updates score
+    Student "1" --> "1" ActiveUsers : login tracked
 
 ## Crows Foot ERD diagram
 ```mermaid
