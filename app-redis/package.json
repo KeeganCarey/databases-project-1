@@ -1,0 +1,14 @@
+{
+  "name": "mentorbridge-redis",
+  "version": "1.0.0",
+  "description": "MentorBridge app with Redis backend (Top Mentors Leaderboard)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ejs": "^3.1.10",
+    "redis": "^4.7.0"
+  }
+}

@@ -284,7 +284,9 @@ classDiagram
 Because we have no experience with HTML, we used Claude Haiku to assist in the generation of the styling of the web pages for the interface. We directed it as to what we wanted the UI to look like and it helped us create it.
 Additionally, Gemini was used to assist in the generation of some parts of the js backend and figuring out how to use node as it was entirely new to us.
 
-*Node App Demo :* https://drive.google.com/drive/folders/1USl-3WywIKwZ6upH08VwuMY7S_WTPSGU?usp=sharing 
+*Node App Demo (Projects 1 & 2):* https://drive.google.com/drive/folders/1USl-3WywIKwZ6upH08VwuMY7S_WTPSGU?usp=sharing
+
+*Project 3 (Redis) Demo:* https://drive.google.com/drive/folders/1sXUzKqHqe0OyqVvzUgLAq76uSdeIyB-r?usp=sharing
 
 ### SQLite App (Project 1)
 ```bash
@@ -302,6 +304,34 @@ npm install
 npm start
 ```
 The website should start on localhost:3001. This version uses MongoDB and has CRUD for Students and Mentors.
+
+### Redis App (Project 3)
+Implements the **Top Mentors Leaderboard** as a Redis sorted set (`leaderboard:mentors`). add/edit/bump/delete mentors and view them ranked.
+
+Full Project 3 requirements, the rationale for all three documented Redis structures and every Redis command are in [`Databases Project 3 P1 - 3 (1).pdf`](./Databases%20Project%203%20P1%20-%203%20(1).pdf).
+
+First run redis on Docker:
+```bash
+docker run -d --name my-redis -p 6379:6379 redis:latest
+```
+If the container already exists, just start it:
+```bash
+docker start my-redis
+```
+
+Then run the app:
+```bash
+cd app-redis
+npm install
+npm start
+```
+The website should start on localhost:3002.
+
+To verify from `redis-cli`:
+```bash
+docker exec -it my-redis redis-cli
+> ZREVRANGE leaderboard:mentors 0 -1 WITHSCORES
+```
 
 
 ## MongoDB Queries
