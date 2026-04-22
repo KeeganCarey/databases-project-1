@@ -85,14 +85,14 @@ classDiagram
         +string companion: session~token~ = user_id
         +int TTL: 3600 seconds
     }
-    Student "1" --> "0..*" Session : books
-    Mentor "1" --> "0..*" Session : conducts
-    Session "1" --> "0..1" Feedback : receives
-    Student "0..*" --> "0..*" Industry : is interested in
-    Mentor "0..*" --> "0..*" Industry : works in
-    Student "1" --> "1" SessionCart : has cart
-    Session "1" --> "1" TopMentorsLeaderboard : updates score
-    Student "1" --> "1" ActiveUsers : login tracked
+Student "1" --> "0..*" Session : books
+Mentor "1" --> "0..*" Session : conducts
+Session "1" --> "0..1" Feedback : receives
+Student "0..*" --> "0..*" Industry : is interested in
+Mentor "0..*" --> "0..*" Industry : works in
+Student "1" --> "0..1" SessionCart : has cart
+Feedback "0..*" --> "1" TopMentorsLeaderboard : updates score
+Student "1" --> "0..1" ActiveUsers : login tracked
 ```
 
 ## Crows Foot ERD diagram
